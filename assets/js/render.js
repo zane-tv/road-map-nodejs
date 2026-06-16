@@ -14,6 +14,7 @@
 import { DAYS, TIER_LABELS } from "./data.js";
 import { applyTheme, initThemeToggle, markVisited } from "./progress.js";
 import { setupMermaid, renderMermaid } from "./mermaid-init.js";
+import hljs from "https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/+esm";
 
 // --- Phát hiện ngày hiện tại từ URL (vd .../day07/ -> slug "day07") ---
 function getCurrentSlug() {
@@ -99,6 +100,34 @@ function renderError(container, title, detail) {
     </div>`;
 }
 
+// --- Tô màu syntax cho code block (kiểu VSCode) bằng highlight.js ---
+// Không đụng tới ```mermaid``` (đã thành <pre class="mermaid">, không có <code>).
+function highlightCode(root) {
+  // Map các alias không có sẵn trong bundle highlight.js sang ngôn ngữ tương đương.
+  const LANG_ALIAS = { jsonc: "json", mjs: "javascript", cjs: "javascript" };
+
+  const blocks = root.querySelectorAll("pre code");
+  blocks.forEach((block) => {
+    // Bỏ qua nếu nằm trong .mermaid (phòng hờ)
+    if (block.closest(".mermaid")) return;
+
+    // Đổi class language-<alias> sang ngôn ngữ highlight.js hiểu được
+    const m = block.className.match(/language-([\w-]+)/);
+    const lang = m && m[1] ? m[1].toLowerCase() : "";
+    if (lang && LANG_ALIAS[lang]) {
+      block.classList.remove(`language-${lang}`);
+      block.classList.add(`language-${LANG_ALIAS[lang]}`);
+    }
+
+    try {
+      hljs.highlightElement(block);
+    } catch (e) {
+      // Lỗi 1 block không làm hỏng cả trang
+      console.error("highlight error:", e);
+    }
+  });
+}
+
 async function renderDay() {
   applyTheme();
   const container = document.getElementById("content");
@@ -148,6 +177,9 @@ async function renderDay() {
   // Mermaid: startOnLoad=false nên phải gọi run() thủ công SAU khi inject DOM.
   // setupMermaid đăng ký hàm render để tự dựng lại đúng màu khi đổi theme.
   setupMermaid(() => renderMermaid(".day-content .mermaid"));
+
+  // Tô màu code block kiểu VSCode (sau khi đã inject DOM)
+  highlightCode(container);
 
   // Đánh dấu đã ghé thăm ngày này + gắn nút theme
   markVisited(meta.slug);

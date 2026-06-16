@@ -452,6 +452,117 @@ a:hover {
   padding: 0;
   font-size: 13.5px;
 }
+
+/* ===========================================================
+   Syntax highlighting (highlight.js) — token màu kiểu VSCode
+   Light = "Light+", Dark = "Dark+". Scope theo [data-theme].
+   =========================================================== */
+.day-content pre code.hljs {
+  display: block;
+  background: none;
+  padding: 0;
+  color: var(--text);
+}
+
+/* --- Light+ (VSCode light) --- */
+[data-theme="light"] .hljs-comment,
+[data-theme="light"] .hljs-quote {
+  color: #008000;
+  font-style: italic;
+}
+[data-theme="light"] .hljs-keyword,
+[data-theme="light"] .hljs-selector-tag,
+[data-theme="light"] .hljs-built_in,
+[data-theme="light"] .hljs-literal {
+  color: #0000ff;
+}
+[data-theme="light"] .hljs-string,
+[data-theme="light"] .hljs-regexp,
+[data-theme="light"] .hljs-meta .hljs-string {
+  color: #a31515;
+}
+[data-theme="light"] .hljs-number,
+[data-theme="light"] .hljs-symbol,
+[data-theme="light"] .hljs-bullet {
+  color: #098658;
+}
+[data-theme="light"] .hljs-title,
+[data-theme="light"] .hljs-title.function_,
+[data-theme="light"] .hljs-section {
+  color: #795e26;
+}
+[data-theme="light"] .hljs-attr,
+[data-theme="light"] .hljs-attribute,
+[data-theme="light"] .hljs-variable,
+[data-theme="light"] .hljs-template-variable,
+[data-theme="light"] .hljs-property {
+  color: #001080;
+}
+[data-theme="light"] .hljs-type,
+[data-theme="light"] .hljs-class .hljs-title,
+[data-theme="light"] .hljs-title.class_ {
+  color: #267f99;
+}
+[data-theme="light"] .hljs-tag,
+[data-theme="light"] .hljs-name {
+  color: #800000;
+}
+[data-theme="light"] .hljs-meta,
+[data-theme="light"] .hljs-doctag {
+  color: #808080;
+}
+
+/* --- Dark+ (VSCode dark) --- */
+[data-theme="dark"] .hljs-comment,
+[data-theme="dark"] .hljs-quote {
+  color: #6a9955;
+  font-style: italic;
+}
+[data-theme="dark"] .hljs-keyword,
+[data-theme="dark"] .hljs-selector-tag,
+[data-theme="dark"] .hljs-literal {
+  color: #569cd6;
+}
+[data-theme="dark"] .hljs-built_in {
+  color: #4ec9b0;
+}
+[data-theme="dark"] .hljs-string,
+[data-theme="dark"] .hljs-regexp,
+[data-theme="dark"] .hljs-meta .hljs-string {
+  color: #ce9178;
+}
+[data-theme="dark"] .hljs-number,
+[data-theme="dark"] .hljs-symbol,
+[data-theme="dark"] .hljs-bullet {
+  color: #b5cea8;
+}
+[data-theme="dark"] .hljs-title,
+[data-theme="dark"] .hljs-title.function_,
+[data-theme="dark"] .hljs-section {
+  color: #dcdcaa;
+}
+[data-theme="dark"] .hljs-attr,
+[data-theme="dark"] .hljs-variable,
+[data-theme="dark"] .hljs-template-variable,
+[data-theme="dark"] .hljs-property {
+  color: #9cdcfe;
+}
+[data-theme="dark"] .hljs-attribute {
+  color: #9cdcfe;
+}
+[data-theme="dark"] .hljs-type,
+[data-theme="dark"] .hljs-class .hljs-title,
+[data-theme="dark"] .hljs-title.class_ {
+  color: #4ec9b0;
+}
+[data-theme="dark"] .hljs-tag,
+[data-theme="dark"] .hljs-name {
+  color: #569cd6;
+}
+[data-theme="dark"] .hljs-meta,
+[data-theme="dark"] .hljs-doctag {
+  color: #808080;
+}
 .day-content blockquote {
   margin: 18px 0;
   padding: 10px 18px;
