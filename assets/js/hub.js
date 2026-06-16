@@ -38,7 +38,7 @@ function weekSection(weekNo, label) {
   const items = DAYS.filter((d) => d.week === weekNo).map(cardHtml).join("");
   return `
     <section class="week">
-      <h2 class="week-title">Tuần ${weekNo} — ${label}</h2>
+      <h2 class="week-title">Tuần ${weekNo} — <b>${label}</b></h2>
       <div class="grid">${items}</div>
     </section>`;
 }

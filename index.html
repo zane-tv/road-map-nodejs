@@ -9,25 +9,15 @@
       content="Lộ trình 14 ngày học Node.js cho intern: từ event loop, async, REST API tới auth, testing, caching và scaling — kèm project Tasks API xuyên suốt."
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <!-- Mermaid v11 (ESM). startOnLoad=false vì hub tự gọi run() sau khi inject. -->
+    <!-- Mermaid v11 (ESM) qua module dùng chung. startOnLoad=false, hub gọi render sau khi DOM sẵn sàng. -->
     <script type="module">
-      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
-      const theme =
-        document.documentElement.getAttribute("data-theme") === "dark" ||
-        (window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches &&
-          !localStorage.getItem("roadmap-theme"))
-          ? "dark"
-          : "default";
-      mermaid.initialize({ startOnLoad: false, theme });
-      window.mermaid = mermaid;
-      // Render sơ đồ lộ trình trên hub sau khi DOM sẵn sàng
-      window.addEventListener("DOMContentLoaded", async () => {
-        try {
-          await mermaid.run({ querySelector: ".mermaid" });
-        } catch (e) {
-          console.error("Mermaid hub error:", e);
-        }
+      import { setupMermaid, renderMermaid } from "./assets/js/mermaid-init.js";
+      window.addEventListener("DOMContentLoaded", () => {
+        // Sơ đồ lộ trình rộng: render đúng kích thước tự nhiên rồi cuộn ngang
+        // (useMaxWidth:false) thay vì co nhỏ tới mức chữ không đọc nổi.
+        setupMermaid(() =>
+          renderMermaid(".roadmap-figure .mermaid", { useMaxWidth: false })
+        );
       });
     </script>
   </head>

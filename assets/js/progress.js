@@ -7,11 +7,8 @@ const VISITED_KEY = "roadmap-visited";
 // ---------- THEME ----------
 export function applyTheme() {
   const saved = localStorage.getItem(THEME_KEY);
-  // Mặc định theo hệ điều hành nếu chưa lưu
-  const prefersDark =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const theme = saved || (prefersDark ? "dark" : "light");
+  // Mặc định light mode nếu chưa lưu lựa chọn nào
+  const theme = saved || "light";
   document.documentElement.setAttribute("data-theme", theme);
   return theme;
 }
@@ -25,6 +22,8 @@ export function toggleTheme() {
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem(THEME_KEY, next);
   updateToggleLabel();
+  // Báo cho Mermaid (và bất kỳ thành phần phụ thuộc theme nào) dựng lại màu.
+  window.dispatchEvent(new CustomEvent("roadmap:themechange", { detail: { theme: next } }));
   return next;
 }
 

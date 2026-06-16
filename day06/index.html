@@ -5,17 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đang tải… · Roadmap Node.js</title>
     <link rel="stylesheet" href="../assets/css/style.css" />
-    <!-- Mermaid v11 (ESM) — startOnLoad=false, render.js gọi run() sau khi inject. -->
-    <script type="module">
-      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
-      const dark =
-        document.documentElement.getAttribute("data-theme") === "dark" ||
-        (window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches &&
-          !localStorage.getItem("roadmap-theme"));
-      mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "default" });
-      window.mermaid = mermaid;
-    </script>
+    <!-- Mermaid v11 (ESM) qua module dùng chung. startOnLoad=false, render.js gọi render sau khi inject. -->
+    <script type="module" src="../assets/js/mermaid-init.js"></script>
   </head>
   <body>
     <div class="topbar">

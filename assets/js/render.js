@@ -13,6 +13,7 @@
 
 import { DAYS, TIER_LABELS } from "./data.js";
 import { applyTheme, initThemeToggle, markVisited } from "./progress.js";
+import { setupMermaid, renderMermaid } from "./mermaid-init.js";
 
 // --- Phát hiện ngày hiện tại từ URL (vd .../day07/ -> slug "day07") ---
 function getCurrentSlug() {
@@ -144,17 +145,9 @@ async function renderDay() {
     <article class="day-content">${bodyHtml}</article>
     ${buildNav(idx)}`;
 
-  // Mermaid: startOnLoad=false nên phải gọi run() thủ công SAU khi inject DOM
-  try {
-    if (window.mermaid) {
-      await window.mermaid.run({
-        querySelector: ".mermaid",
-      });
-    }
-  } catch (err) {
-    // Một sơ đồ lỗi không được làm hỏng cả trang
-    console.error("Mermaid render error:", err);
-  }
+  // Mermaid: startOnLoad=false nên phải gọi run() thủ công SAU khi inject DOM.
+  // setupMermaid đăng ký hàm render để tự dựng lại đúng màu khi đổi theme.
+  setupMermaid(() => renderMermaid(".day-content .mermaid"));
 
   // Đánh dấu đã ghé thăm ngày này + gắn nút theme
   markVisited(meta.slug);
