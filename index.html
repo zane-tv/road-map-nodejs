@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roadmap 14 ngày Intern Node.js</title>
+    <meta
+      name="description"
+      content="Lộ trình 14 ngày học Node.js cho intern: từ event loop, async, REST API tới auth, testing, caching và scaling — kèm project Tasks API xuyên suốt."
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- Mermaid v11 (ESM). startOnLoad=false vì hub tự gọi run() sau khi inject. -->
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+      const theme =
+        document.documentElement.getAttribute("data-theme") === "dark" ||
+        (window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches &&
+          !localStorage.getItem("roadmap-theme"))
+          ? "dark"
+          : "default";
+      mermaid.initialize({ startOnLoad: false, theme });
+      window.mermaid = mermaid;
+      // Render sơ đồ lộ trình trên hub sau khi DOM sẵn sàng
+      window.addEventListener("DOMContentLoaded", async () => {
+        try {
+          await mermaid.run({ querySelector: ".mermaid" });
+        } catch (e) {
+          console.error("Mermaid hub error:", e);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">📘 Roadmap <span>Node.js</span> · 14 ngày</div>
+      <button id="theme-toggle" type="button">🌙 Tối</button>
+    </div>
+
+    <div class="wrap wide">
+      <section class="hero">
+        <h1>Lộ trình 14 ngày Intern Node.js</h1>
+        <p>
+          Từ event loop &amp; async I/O tới REST API, authentication, testing,
+          caching và scaling. Mỗi ngày một bài học cô đọng kèm sơ đồ trực quan,
+          câu hỏi phỏng vấn và một phần của project <strong>Tasks API</strong>
+          xây dần xuyên suốt.
+        </p>
+
+        <div class="progress-wrap">
+          <div class="progress-track">
+            <div id="progress-bar"></div>
+          </div>
+          <span id="progress-text">0/14 ngày · 0%</span>
+        </div>
+      </section>
+
+      <figure class="roadmap-figure">
+        <pre class="mermaid">
+flowchart LR
+  subgraph W1["Tuần 1 · Core Node & I/O"]
+    D1["1· JS & Module"] --> D2["2· Runtime & V8"]
+    D2 --> D3["3· Event Loop"]
+    D3 --> D4["4· Async Patterns"]
+    D4 --> D5["5· Error Handling"]
+    D5 --> D6["6· EventEmitter"]
+  end
+  subgraph W2["Tuần 2 · Web, API & Scaling"]
+    D7["7· Web Service"] --> D8["8· REST Design"]
+    D8 --> D9["9· Express"]
+    D9 --> D10["10· Config & SQLite"]
+    D10 --> D11["11· Auth & Security"]
+    D11 --> D12["12· Testing"]
+    D12 --> D13["13· Caching & Perf"]
+    D13 --> D14["14· Scaling & Wrap-up"]
+  end
+  D6 --> D7
+        </pre>
+      </figure>
+
+      <main id="days-root">
+        <!-- Card 14 ngày render bằng hub.js -->
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      Học theo lộ trình, đánh dấu hoàn thành mỗi ngày. Tiến độ lưu trên trình
+      duyệt của bạn.
+    </footer>
+
+    <!-- marked v12 (global window.marked) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <script type="module" src="./assets/js/hub.js"></script>
+  </body>
+</html>

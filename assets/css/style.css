@@ -1,0 +1,519 @@
+/* ===========================================================
+   Roadmap 14 ngày Node.js — style dùng chung
+   Dark/light qua [data-theme] trên <html>. Biến CSS điều khiển màu.
+   =========================================================== */
+
+:root {
+  --bg: #f7f8fa;
+  --bg-elev: #ffffff;
+  --bg-soft: #eef1f5;
+  --text: #1c2128;
+  --text-soft: #5b6573;
+  --border: #e2e6ec;
+  --accent: #2f9e44;
+  --accent-soft: #e7f5ec;
+  --code-bg: #f1f3f6;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 6px 18px rgba(0, 0, 0, 0.05);
+  --radius: 12px;
+  --maxw: 860px;
+
+  --tier-foundational: #2f9e44;
+  --tier-intermediate: #1971c2;
+  --tier-advanced: #e8590c;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+  --mono: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+}
+
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --bg-elev: #161b22;
+  --bg-soft: #1c232c;
+  --text: #e6edf3;
+  --text-soft: #9aa6b2;
+  --border: #2a323c;
+  --accent: #3fb950;
+  --accent-soft: #132b1c;
+  --code-bg: #1c232c;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  --tier-foundational: #3fb950;
+  --tier-intermediate: #58a6ff;
+  --tier-advanced: #ff922b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Topbar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  background: color-mix(in srgb, var(--bg-elev) 85%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar .brand {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+.topbar .brand span {
+  color: var(--accent);
+}
+
+#theme-toggle {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+#theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+/* ---------- Wrapper ---------- */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+.wrap.wide {
+  max-width: 1080px;
+}
+
+/* ---------- Hero (hub) ---------- */
+.hero {
+  text-align: center;
+  padding: 56px 0 32px;
+}
+.hero h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.hero p {
+  color: var(--text-soft);
+  font-size: 17px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ---------- Progress ---------- */
+.progress-wrap {
+  max-width: 560px;
+  margin: 28px auto 8px;
+}
+.progress-track {
+  height: 10px;
+  background: var(--bg-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--tier-intermediate));
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+#progress-text {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* ---------- Roadmap diagram box ---------- */
+.roadmap-figure {
+  margin: 36px 0;
+  padding: 20px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+.roadmap-figure .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---------- Week sections ---------- */
+.week {
+  margin-top: 44px;
+}
+.week-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+/* ---------- Grid + cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, border-color 0.15s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+.card.is-done {
+  border-color: var(--accent);
+}
+.card.is-done::after {
+  content: "✓";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.card-day {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.card-tier {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: #fff;
+}
+.card-title {
+  font-size: 17px;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+.card-title a {
+  color: var(--text);
+}
+.card-title a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+.card-summary {
+  font-size: 14px;
+  color: var(--text-soft);
+  margin: 0 0 14px;
+  flex: 1;
+}
+.card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--bg-soft);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+}
+.card-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--text-soft);
+  cursor: pointer;
+  user-select: none;
+}
+.card-check input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+}
+
+/* tier color helpers (badge nền) */
+.tier-foundational {
+  background: var(--tier-foundational);
+}
+.tier-intermediate {
+  background: var(--tier-intermediate);
+}
+.tier-advanced {
+  background: var(--tier-advanced);
+}
+
+/* ===========================================================
+   Trang ngày (dayXX)
+   =========================================================== */
+.day-header {
+  padding: 40px 0 8px;
+}
+.day-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  padding: 4px 11px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.day-kicker {
+  font-size: 13px;
+  color: var(--text-soft);
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+.day-title {
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* ---------- Day nav ---------- */
+.day-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.nav-link {
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--text);
+  max-width: 38%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-link:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+.nav-link.home {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+.nav-link.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Day content (markdown) ---------- */
+.day-content {
+  font-size: 16px;
+}
+.day-content h2 {
+  font-size: 24px;
+  margin-top: 40px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  letter-spacing: -0.01em;
+}
+.day-content h3 {
+  font-size: 19px;
+  margin-top: 28px;
+}
+.day-content h4 {
+  font-size: 16px;
+  margin-top: 22px;
+  color: var(--text-soft);
+}
+.day-content p,
+.day-content li {
+  color: var(--text);
+}
+.day-content ul,
+.day-content ol {
+  padding-left: 22px;
+}
+.day-content li {
+  margin: 6px 0;
+}
+.day-content code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+.day-content pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+.day-content pre code {
+  background: none;
+  padding: 0;
+  font-size: 13.5px;
+}
+.day-content blockquote {
+  margin: 18px 0;
+  padding: 10px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+  color: var(--text);
+}
+.day-content blockquote p {
+  margin: 6px 0;
+}
+.day-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 14.5px;
+}
+.day-content th,
+.day-content td {
+  border: 1px solid var(--border);
+  padding: 9px 12px;
+  text-align: left;
+}
+.day-content th {
+  background: var(--bg-soft);
+  font-weight: 600;
+}
+.day-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+.day-content a {
+  text-decoration: underline;
+}
+
+/* Mermaid container */
+.day-content .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+  padding: 16px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+/* ---------- State boxes ---------- */
+.state-box {
+  margin: 60px auto;
+  max-width: 560px;
+  text-align: center;
+  padding: 32px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-soft);
+}
+.state-loading {
+  font-size: 15px;
+}
+.state-error h2 {
+  color: var(--tier-advanced);
+  margin-top: 0;
+}
+.state-error .hint {
+  font-size: 13px;
+  background: var(--bg-soft);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-soft);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .day-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-link {
+    max-width: none;
+    white-space: normal;
+    text-align: center;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

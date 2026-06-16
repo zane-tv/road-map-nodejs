@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đang tải… · Roadmap Node.js</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <!-- Mermaid v11 (ESM) — startOnLoad=false, render.js gọi run() sau khi inject. -->
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+      const dark =
+        document.documentElement.getAttribute("data-theme") === "dark" ||
+        (window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches &&
+          !localStorage.getItem("roadmap-theme"));
+      mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "default" });
+      window.mermaid = mermaid;
+    </script>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand">
+        <a href="../index.html">📘 Roadmap <span>Node.js</span></a>
+      </div>
+      <button id="theme-toggle" type="button">🌙 Tối</button>
+    </div>
+
+    <div class="wrap">
+      <div id="content">
+        <div class="state-box state-loading">Đang tải nội dung…</div>
+      </div>
+    </div>
+
+    <footer class="site-footer">Roadmap 14 ngày Intern Node.js</footer>
+
+    <!-- marked v12 (global window.marked) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <script type="module" src="../assets/js/render.js"></script>
+  </body>
+</html>
