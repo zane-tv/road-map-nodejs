@@ -217,6 +217,8 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
+  /* Mỗi card cao theo nội dung thực, không bị kéo dãn bằng nhau theo hàng */
+  align-items: start;
 }
 .card {
   position: relative;
@@ -270,8 +272,6 @@ a:hover {
   font-size: 17px;
   line-height: 1.3;
   margin: 0 0 8px;
-  /* Canh đều: tiêu đề chiếm tối thiểu 2 dòng để summary thẳng hàng giữa các card */
-  min-height: 2.6em;
 }
 .card-title a {
   color: var(--text);
@@ -290,9 +290,6 @@ a:hover {
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 16px;
-  /* Đẩy phần chip + checkbox xuống đáy để mọi card canh đáy đồng nhất,
-     tránh khoảng trống lớn ở card ít dòng (vd day13/14). */
-  margin-top: auto;
 }
 .chip {
   font-size: 11px;
